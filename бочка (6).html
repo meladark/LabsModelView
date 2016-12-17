@@ -1,0 +1,55 @@
+<HTML>
+<BODY>
+	<canvas id='KompGraf' width='500' height='500'>
+		<script>
+		var canvas = document.getElementById('KompGraf');
+		var ctx = canvas.getContext('2d');           
+		var X = [100,50,100];
+		var Y = [10,50,100];
+		var xnew = [120,80,120]; 
+		//alert (3);
+		function kidalka_cheris_pi(x,y)
+		{
+			for(var j = 0; j <= 3; j++)
+			{
+				x = 100 + j*20 + Math.cos((j*30)/57)*x - 100*Math.cos((j*30)/57);
+				var otr = 100 + 3*20 + Math.cos(0)*100 - 100*Math.cos(0) - x;
+				//sqrt(3600 - (160 - (100 + j*20))*(160 - (100 + j*20)))
+				var k = y + (Math.sqrt(3600 - (3 - j)*20*(3 - j)*20))*Math.sin(10/57);
+				ctx.fillRect(x, k, 2, 2); 
+				otr = x + 2*otr;
+				ctx.fillRect(otr, k, 2, 2);
+			}
+		}
+		function print(X,Y)
+		{        
+			ctx.moveTo(X[0],Y[0]);       
+			for(var i = 0;i < X.length; i++)       
+			{               
+				//ctx.lineTo(X[i],Y[i]);      
+			}           
+			ctx.stroke();   
+			for (var i = 0; i <= 1; i += 0.005) 
+			{      
+				var x = (1 - i) * (1 - i) * X[0] + 2 * i * (1 - i) * X[1] + i*i* X[2]; 
+				var y = (1 - i) * (1 - i) * Y[0] + 2 * i * (1 - i) * Y[1] + i * i * Y[2];  
+				var krush_y = (1 - i) * (1 - i) * 10 + 2 * i * (1 - i) * (20 + (60*Math.sin(10/57))) + i*i*10;
+				var krush_x = (1 - i) * (1 - i) * 100 + 2 * i * (1 - i) * 160 + i*i*220; 
+				kidalka_cheris_pi(x,y);
+				//ctx.fillRect(x, y, 2, 2);    
+				ctx.fillRect(krush_x, krush_y, 2, 2); 
+				var delta = krush_y - 10;
+				ctx.fillRect(krush_x, krush_y - 2*delta, 2, 2); 
+				var krush_y = (1 - i) * (1 - i) * 100 + 2 * i * (1 - i) * (112 + (60*Math.sin(10/57))) + i*i*100;
+				ctx.fillRect(krush_x, krush_y, 2, 2); 
+			}   
+			//x = 100 + j*20 + Math.cos((j*30)/57)*x - 100*Math.cos((j*30)/57);
+		}
+		//alert(10 + (Math.sqrt(3600 - (3 - 1)*20*(3 - 1)*20))*Math.sin(30/57));
+		//alert(X);
+		//alert(Y);
+		print(X,Y);
+		</script>
+	</canvas>
+</BODY>
+</HTML>

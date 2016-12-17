@@ -1,0 +1,47 @@
+<HTML>
+<BODY>
+	<canvas id='KompGraf' width='500' height='500'>
+		<script>
+		var canvas = document.getElementById('KompGraf');
+		var ctx = canvas.getContext('2d');           
+		var X = [100,50,100];
+		var Y = [10,50,100];
+		var xnew = [120,80,120]; 
+		//alert (3);
+		 function print(X,Y)
+		{        
+			ctx.moveTo(X[0],Y[0]);       
+			for(var i = 0;i < X.length; i++)       
+			{               
+				//ctx.lineTo(X[i],Y[i]);      
+			}           
+			ctx.stroke();   
+			for (var i = 0; i <= 1; i += 0.005) 
+			{      
+				var x = (1 - i) * (1 - i) * X[0] + 2 * i * (1 - i) * X[1] + i*i* X[2]; 
+				var y = (1 - i) * (1 - i) * Y[0] + 2 * i * (1 - i) * Y[1] + i * i * Y[2];  
+				ctx.fillRect(x, y, 2, 2);     
+			}   
+		}
+		print(X,Y);
+		print(xnew,Y);
+ 
+	function vertelka(X,Y,A)
+	{
+		for(var i = 0; i<X.length;i++)
+		{	
+			var G = X[i];
+			//alert(1);
+       			X[i] = Math.cos(A*Math.PI/180)*X[i]-Math.sin(A*Math.PI/180)*Y[i];	
+			Y[i] = Math.sin(A*Math.PI/180)*G+Math.cos(A*Math.PI/180)*Y[i];
+		}
+	}
+	//alert(X);
+	vertelka(X,Y,-10);
+	alert(X);
+	alert(Y);
+	print(X,Y);
+		</script>
+	</canvas>
+</BODY>
+</HTML>

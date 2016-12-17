@@ -1,0 +1,50 @@
+﻿<html>
+	<head>
+		<title>canvasExample</title>
+        <meta charset='utf-8' />
+	<body>
+		<canvas height='500' width='500' id='example'>Обновите браузер</canvas>
+		<script>
+		var example = document.getElementById("example"),
+	    ctx     = example.getContext('2d');
+		ctx.strokeRect(0, 0, 500, 500); // Рамка для области, с которой работаем
+		
+		var x0 = 300;
+		var y0 = 400;
+		var radius = 10;
+		
+		var x = radius;
+		var y = 0;
+		var radiusError = 1 - x;
+		
+		while (x >= y)
+		{
+			Pixel(x + x0, y + y0);
+			Pixel(y + x0, x + y0);
+			Pixel(-x + x0, y + y0);
+			Pixel(-y + x0, x + y0);
+			Pixel(-x + x0, -y + y0);
+			Pixel(-y + x0, -x + y0);
+			Pixel(x + x0, -y + y0);
+			Pixel(y + x0, -x + y0);
+			y++;
+			
+			if (radiusError < 0)
+			{
+				radiusError += 2 * y + 1;
+			}
+			else
+			{
+				x--;
+				radiusError += 2 * (y - x + 1);
+			}
+		}
+
+		function Pixel(x, y)
+		{
+			ctx.fillRect(x, y, 2, 2);
+		}
+		
+		</script>
+	</body>
+</html>

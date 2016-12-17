@@ -1,0 +1,24 @@
+<HTML>
+<BODY>
+	<canvas id='KompGraf' width='500' height='500'>
+		<script>
+		var canvas = document.getElementById('KompGraf');
+		var ctx = canvas.getContext('2d');           
+		var X = [0,50,50];
+		var Y = [100,100,0];         
+		ctx.moveTo(X[0],Y[0]);       
+			for(var i = 0;i < X.length; i++)       
+			{               
+				ctx.lineTo(X[i],Y[i]);      
+			}           
+		ctx.stroke();   
+			for (var i = 0; i <= 1; i += 0.005) 
+			{      
+				var x = (1 - i) * (1 - i) * X[0] + 2 * i * (1 - i) * X[1] + (1 - i) * (1 - i) * X[2]; 
+				var y = (1 - i) * (1 - i) * Y[0] + 2 * i * (1 - i) * Y[1] + (1 - i) * (1 - i) * Y[2];  
+				ctx.fillRect(x, y, 2, 2);     
+			}   
+		</script>
+	</canvas>
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<title>canvasExample</title>
+        <meta charset='utf-8' />
+	<body>
+		<canvas height='500' width='500' id='example'>Обновите браузер</canvas>
+		<script>
+		var example = document.getElementById("example"),
+	    ctx     = example.getContext('2d');
+		ctx.strokeRect(0, 0, 500, 500); // Рамка для области, с которой работаем		
+		var x0 = 30;
+		var y0 = 400;
+		var x1 = 300;
+		var y1 = 300;
+		var steep = Math.abs(y1 - y0) > Math.abs(x1 - x0);	
+		if (steep)  // Отражаем линию по диагонали, если угол наклона слишком большой
+		{
+			var temp;
+			temp = x0;
+			x0 = y0;
+			y0 = temp;
+			temp = x1;
+			x1 = y1;
+			y1 = temp;
+		}
+		if (x0 > x1) // Если линия растёт не слева направо, то меняем начало и конец отрезка местами
+		{
+			var temp;
+			temp = x0;
+			x0 = x1;
+			x1 = temp;
+			temp = y0;
+			y0 = y1;
+			y1 = temp;
+		}		
+		var dx = x1 - x0;
+		var dy = Math.abs(y1 - y0);
+		var error = dx / 2; 			// Здесь используется оптимизация с умножением на dx, чтобы избавиться от лишних дробей
+		var ystep = (y0 < y1) ? 1 : -1; // Выбираем направление роста координаты y
+		var y = y0;
+		for (var x = x0; x <= x1; x++)
+		{
+			Pixel(steep ? y : x, steep ? x : y); // Возвращаем координаты на место
+			error -= dy;
+			if (error < 0)
+			{
+				y += ystep;
+				error += dx;
+			}
+		}	
+		function Pixel(x, y)
+		{
+			ctx.fillRect(x, y, 2, 2);
+		}
+		</script>
+	</body>
+</html>
